@@ -3,7 +3,7 @@ pipeline {
     stages {
       stage('Checkout external proj') {
         steps {
-            git branch:'main', credentialsId: '96dff699-adf1-4ef7-992f-543278a09c92', url: 'https://github.com/gh-rajpranav/devops-test.git'
+            git branch: 'main', credentialsId: '96dff699-adf1-4ef7-992f-543278a09c92', url: 'https://github.com/gh-rajpranav/devops-test.git'
             sh "ls -lat"
            }
          }
@@ -12,9 +12,9 @@ pipeline {
             steps {
                sh '''         
                  echo "Building images"
-                 docker build -f Dockerfile_appserver rpdockerregistry/webapp .
-                 docker build -f Dockerfile_webserver rpdockerregistry/app .
-                 docker build -f Dockerfile_mysql rpdockerregistry/sql .
+                 docker build -f Dockerfile_appserver -t rpdockerregistry/webapp:1 .
+                 docker build -f Dockerfile_webserver -t rpdockerregistry/app:1 .
+                 docker build -f Dockerfile_mysql -t rpdockerregistry/sql:1 .
 
                  
                  '''
