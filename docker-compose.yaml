@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  webapp:
+    depends_on:
+     - sql
+    ports:
+     - "80:80"
+    image: webapp:latest
+
+  App:
+    depends_on:
+      - sql
+    ports:
+     - "8080:8080"
+    image: app:latest
+
+  sql:
+    ports:
+     - "3306:3306"
+    image: sql:latest
