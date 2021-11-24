@@ -3,10 +3,7 @@ pipeline {
     stages {
       stage('Checkout external proj') {
         steps {
-            git branch: 'main',
-                credentialsId: 'my_cred_id',
-                url: 'https://github.com/gh-rajpranav/devops-test.git'
-
+            git credentialsId: '96dff699-adf1-4ef7-992f-543278a09c92', url: 'https://github.com/gh-rajpranav/devops-test.git'
             sh "ls -lat"
            }
          }
