@@ -1,0 +1,24 @@
+FROM ubuntu:12.04
+
+RUN  apt-get update -y
+RUN  sudo apt-get dist-upgrade -y
+RUN  sudo apt-get install -y git
+RUN  apt-get install -y apache2
+RUN  sudo apt-get install python-pip -y
+RUN  sudo pip install pymysql
+
+RUN  sudo a2dismod mpm_event
+RUN  sudo a2enmod mpm_prefork cgi
+
+RUN wget "https://s3.amazonaws.com/richbourg-s3/mtwa/app/ports.conf"
+RUN wget "https://s3.amazonaws.com/richbourg-s3/mtwa/app/000-default.conf"
+RUN sudo cp 000-default.conf /etc/apache2/sites-enabled/
+RUN sudo cp ports.conf /etc/apache2/
+RUN sudo git clone https://gitlab.com/crest1/devops_test.git
+
+RUN cd devops_test && sudo bash install.sh
+
+ENTRYPOINT ["/usr/sbin/apache2"]
+CMD ["-D", "FOREGROUND"]
+
+EXPOSE 8080
