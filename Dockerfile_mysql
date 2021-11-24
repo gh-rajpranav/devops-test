@@ -1,0 +1,7 @@
+FROM mysql:5.7
+
+RUN  wget "https://gitlab.com/crest1/devops_test/-/raw/master/sql/create_db_table.sql"
+
+COPY create_db_table.sql /docker-entrypoint-initdb.d
+
+EXPOSE 3306
